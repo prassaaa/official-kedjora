@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
-import { ExternalLink, Github, Filter, Search } from 'lucide-react'
+import { ExternalLink, Code, Filter, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -232,7 +231,7 @@ export default function PortfolioPage() {
                     {item.githubUrl && (
                       <Button size="sm" variant="secondary" asChild>
                         <a href={item.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Github className="h-4 w-4 mr-2" />
+                          <Code className="h-4 w-4 mr-2" />
                           Code
                         </a>
                       </Button>

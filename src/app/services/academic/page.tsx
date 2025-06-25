@@ -103,7 +103,7 @@ export default function AcademicServicePage() {
                     <CardHeader className="text-center">
                       <div className="flex items-center justify-center gap-2 mb-2">
                         <CardTitle className="text-xl">{pkg.name}</CardTitle>
-                        {pkg.is_popular && (
+                        {pkg.id === 'assignment' && (
                           <Badge variant="default" className="text-xs">
                             <Star className="h-3 w-3 mr-1" />
                             Populer

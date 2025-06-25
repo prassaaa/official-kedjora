@@ -13,7 +13,7 @@ import { formatCurrency } from '@/lib/utils'
 
 export default function AppServicePage() {
   const service = SERVICES.APP
-  const [selectedPackage, setSelectedPackage] = useState(service.packages[1]) // Default to Standard
+  const [selectedPackage, setSelectedPackage] = useState(service?.packages?.[1] || service?.packages?.[0]) // Default to Standard or first package
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -69,7 +69,7 @@ export default function AppServicePage() {
           >
             <h2 className="text-2xl font-bold mb-6">Pilih Paket yang Sesuai</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {service.packages.map((pkg, index) => (
+              {service?.packages?.map((pkg, index) => (
                 <motion.div
                   key={pkg.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -87,7 +87,7 @@ export default function AppServicePage() {
                     <CardHeader className="text-center">
                       <div className="flex items-center justify-center gap-2 mb-2">
                         <CardTitle className="text-xl">{pkg.name}</CardTitle>
-                        {pkg.is_popular && (
+                        {pkg.id === 'standard' && (
                           <Badge variant="default" className="text-xs">
                             <Star className="h-3 w-3 mr-1" />
                             Populer
@@ -110,12 +110,12 @@ export default function AppServicePage() {
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2">
-                        {pkg.features.map((feature, idx) => (
+                        {pkg?.features?.map((feature, idx) => (
                           <li key={idx} className="flex items-start text-sm">
                             <Check className="h-4 w-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
                             {feature}
                           </li>
-                        ))}
+                        )) || []}
                       </ul>
                     </CardContent>
                   </Card>
@@ -147,12 +147,12 @@ export default function AppServicePage() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {service.features.map((feature, idx) => (
+                      {service.packages?.flatMap(pkg => pkg.features || []).filter((feature, index, arr) => arr.indexOf(feature) === index).map((feature, idx) => (
                         <div key={idx} className="flex items-center">
                           <Check className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
                           <span className="text-sm">{feature}</span>
                         </div>
-                      ))}
+                      )) || []}
                     </div>
                   </CardContent>
                 </Card>
@@ -252,12 +252,12 @@ export default function AppServicePage() {
                 <div className="space-y-2">
                   <h4 className="font-semibold">Yang Anda Dapatkan:</h4>
                   <ul className="space-y-1">
-                    {selectedPackage.features.map((feature, idx) => (
+                    {selectedPackage?.features?.map((feature, idx) => (
                       <li key={idx} className="flex items-start text-sm">
                         <Check className="h-4 w-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
                         {feature}
                       </li>
-                    ))}
+                    )) || []}
                   </ul>
                 </div>
               </CardContent>
