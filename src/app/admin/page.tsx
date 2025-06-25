@@ -1,26 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+// import { useState } from 'react' // TODO: Add back when implementing interactive features
 import { motion } from 'framer-motion'
-import { 
-  Users, 
-  FileText, 
-  ShoppingCart, 
-  DollarSign, 
-  TrendingUp, 
-  Calendar,
+import {
+  Users,
+  FileText,
+  ShoppingCart,
+  DollarSign,
+  TrendingUp,
   Clock,
   Star,
   AlertCircle,
   CheckCircle,
   XCircle,
-  Eye,
   MessageSquare
 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs' // Unused for now
 import { formatCurrency } from '@/lib/utils'
 
 // Mock data - replace with actual data from database
@@ -143,7 +141,7 @@ const getStatusIcon = (status: string) => {
 }
 
 export default function AdminDashboard() {
-  const [timeRange, setTimeRange] = useState('30d')
+  // const [timeRange, setTimeRange] = useState('30d'); // TODO: Implement time range filter
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -380,7 +378,7 @@ export default function AdminDashboard() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm">Response Time</span>
-                <span className="font-semibold">< 2h</span>
+                <span className="font-semibold">&lt; 2h</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm">Client Retention</span>
