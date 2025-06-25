@@ -68,7 +68,7 @@ export default function ServicesPage() {
                         <div key={pkg.id} className="flex items-center justify-between p-3 rounded-lg border">
                           <div className="flex items-center gap-3">
                             <div className="font-medium">{pkg.name}</div>
-                            {pkg.is_popular && (
+                            {pkg.id === 'standard' && (
                               <Badge variant="default" className="text-xs">
                                 <Star className="h-3 w-3 mr-1" />
                                 Populer
@@ -92,15 +92,15 @@ export default function ServicesPage() {
                   <div className="space-y-3">
                     <h4 className="font-semibold">Fitur Utama:</h4>
                     <ul className="space-y-2">
-                      {service.features.slice(0, 4).map((feature, idx) => (
+                      {service.packages?.[0]?.features?.slice(0, 4).map((feature, idx) => (
                         <li key={idx} className="flex items-center text-sm">
                           <Check className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
                           {feature}
                         </li>
-                      ))}
-                      {service.features.length > 4 && (
+                      )) || []}
+                      {(service.packages?.[0]?.features?.length || 0) > 4 && (
                         <li className="text-sm text-muted-foreground">
-                          +{service.features.length - 4} fitur lainnya
+                          +{(service.packages?.[0]?.features?.length || 0) - 4} fitur lainnya
                         </li>
                       )}
                     </ul>
