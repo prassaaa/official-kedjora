@@ -2,11 +2,10 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Star, Quote, Send, CheckCircle, Filter, Plus } from 'lucide-react'
+import { Star, Quote, Send, CheckCircle, Filter, Plus, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -469,7 +468,7 @@ export default function TestimonialsPage() {
                   </div>
 
                   <blockquote className="text-sm leading-relaxed text-muted-foreground mb-4">
-                    "{testimonial.message}"
+                    &ldquo;{testimonial.message}&rdquo;
                   </blockquote>
 
                   <div className="text-xs text-muted-foreground">
