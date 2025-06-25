@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { User as SupabaseUser } from '@supabase/supabase-js'
 import { createClientComponentClient } from '@/lib/supabase'
 import { User } from '@/types'
@@ -53,25 +53,120 @@ export function useAuth() {
     )
 
     return () => subscription.unsubscribe()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabase, isSupabaseConfigured])
 
   const fetchUserProfile = async (authUser: SupabaseUser) => {
     try {
+      console.log('Fetching user profile for:', authUser.id, authUser.email)
+
+      // First try to get user profile
       const { data: profile, error } = await supabase
         .from('users')
         .select('*')
         .eq('id', authUser.id)
-        .single()
+        .maybeSingle() // Use maybeSingle instead of single to avoid error if not found
+
+      console.log('Profile query result:', { profile, error })
 
       if (error) {
-        console.error('Error fetching user profile:', error)
-        setUser(null)
+        console.error('Database error fetching user profile:', error)
+
+        // If it's a permission or RLS error, try to create the user profile
+        if (error.code === '42501' || error.code === '42P17' || error.message?.includes('permission denied') || error.message?.includes('infinite recursion')) {
+          console.log('Permission/RLS error detected, attempting to create user profile...')
+          await createUserProfile(authUser)
+          return
+        }
+
+        // For other errors, use fallback user
+        const fallbackUser = {
+          id: authUser.id,
+          email: authUser.email || '',
+          full_name: authUser.user_metadata?.full_name || authUser.user_metadata?.name || authUser.email || '',
+          avatar_url: authUser.user_metadata?.avatar_url || authUser.user_metadata?.picture || null,
+          role: 'client' as const,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }
+        console.log('Using fallback user:', fallbackUser)
+        setUser(fallbackUser)
+      } else if (!profile) {
+        // Profile doesn't exist, create it
+        console.log('User profile not found, creating new profile...')
+        await createUserProfile(authUser)
+        return
       } else {
+        console.log('User profile found:', profile)
         setUser(profile)
       }
     } catch (error) {
-      console.error('Error fetching user profile:', error)
-      setUser(null)
+      console.error('Unexpected error fetching user profile:', error)
+      // Fallback: create user from auth data
+      const fallbackUser = {
+        id: authUser.id,
+        email: authUser.email || '',
+        full_name: authUser.user_metadata?.full_name || authUser.user_metadata?.name || authUser.email || '',
+        avatar_url: authUser.user_metadata?.avatar_url || authUser.user_metadata?.picture || null,
+        role: 'client' as const,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+      console.log('Using fallback user after error:', fallbackUser)
+      setUser(fallbackUser)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const createUserProfile = async (authUser: SupabaseUser) => {
+    try {
+      console.log('Creating user profile for:', authUser.id, authUser.email)
+
+      const newUser = {
+        id: authUser.id,
+        email: authUser.email || '',
+        full_name: authUser.user_metadata?.full_name || authUser.user_metadata?.name || authUser.email || '',
+        avatar_url: authUser.user_metadata?.avatar_url || authUser.user_metadata?.picture || null,
+        role: 'client' as const
+      }
+
+      console.log('Inserting user data:', newUser)
+
+      const { data: profile, error } = await supabase
+        .from('users')
+        .insert(newUser)
+        .select()
+        .single()
+
+      if (error) {
+        console.error('Database error creating user profile:', error)
+        // Use fallback user if insert fails
+        const fallbackUser = {
+          ...newUser,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }
+        console.log('Using fallback user after insert error:', fallbackUser)
+        setUser(fallbackUser)
+      } else {
+        console.log('User profile created successfully:', profile)
+        setUser(profile)
+      }
+    } catch (error) {
+      console.error('Unexpected error creating user profile:', error)
+      // Use fallback user
+      const fallbackUser = {
+        id: authUser.id,
+        email: authUser.email || '',
+        full_name: authUser.user_metadata?.full_name || authUser.user_metadata?.name || authUser.email || '',
+        avatar_url: authUser.user_metadata?.avatar_url || authUser.user_metadata?.picture || null,
+        role: 'client' as const,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+      console.log('Using fallback user after unexpected error:', fallbackUser)
+      setUser(fallbackUser)
     } finally {
       setLoading(false)
     }
