@@ -3,6 +3,7 @@ import ServicesSection from '@/components/sections/services-section'
 import PortfolioSection from '@/components/sections/portfolio-section'
 import TestimonialsSection from '@/components/sections/testimonials-section'
 import ContactSection from '@/components/sections/contact-section'
+import ClientOnly from '@/components/client-only'
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
       <HeroSection />
       <ServicesSection />
       <PortfolioSection />
-      <TestimonialsSection />
+      <ClientOnly>
+        <TestimonialsSection />
+      </ClientOnly>
       <ContactSection />
     </div>
   )

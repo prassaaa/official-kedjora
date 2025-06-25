@@ -5,6 +5,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { AuthProvider } from '@/lib/auth-context';
 import { SITE_CONFIG } from '@/constants';
+import ClientOnly from '@/components/client-only';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -72,12 +73,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
         <AuthProvider>
           <div className="relative flex min-h-screen flex-col">
-            <Header />
+            <ClientOnly>
+              <Header />
+            </ClientOnly>
             <main className="flex-1">{children}</main>
-            <Footer />
+            <ClientOnly>
+              <Footer />
+            </ClientOnly>
           </div>
         </AuthProvider>
       </body>

@@ -192,7 +192,7 @@ export default function Footer() {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="mt-16 border-t border-border pt-8 sm:mt-20 lg:mt-24"
         >
-          <p className="text-xs leading-5 text-muted-foreground text-center">
+          <p className="text-xs leading-5 text-muted-foreground text-center" suppressHydrationWarning>
             &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
           </p>
         </motion.div>
