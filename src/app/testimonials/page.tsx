@@ -432,7 +432,7 @@ export default function TestimonialsPage() {
 
       {/* Testimonials Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {filteredTestimonials.map((testimonial, index) => (
             <motion.div
               key={`${activeCategory}-${testimonial.id}`}
@@ -445,13 +445,8 @@ export default function TestimonialsPage() {
               <Card className="h-full hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="relative w-12 h-12 overflow-hidden rounded-full">
-                      <Image
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="relative w-12 h-12 overflow-hidden rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                      <User className="h-6 w-6 text-primary/60" />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-foreground">

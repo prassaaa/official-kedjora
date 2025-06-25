@@ -273,7 +273,7 @@ export default function BlogPage() {
 
           {/* Blog Posts Grid */}
           <div className="space-y-8">
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {filteredPosts.map((post, index) => (
                 <motion.div
                   key={`${selectedCategory}-${post.id}`}

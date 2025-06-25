@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ExternalLink, Github, ArrowRight } from 'lucide-react'
+import { ExternalLink, Code, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -15,7 +15,7 @@ const portfolioItems = [
     title: 'E-Commerce Fashion Store',
     description: 'Platform e-commerce modern dengan fitur lengkap untuk toko fashion online',
     category: 'website',
-    image: '/portfolio/ecommerce-1.jpg',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
     technologies: ['Next.js', 'Tailwind CSS', 'Supabase', 'Stripe'],
     projectUrl: 'https://example.com',
     githubUrl: 'https://github.com/example',
@@ -26,7 +26,7 @@ const portfolioItems = [
     title: 'Mobile Banking App',
     description: 'Aplikasi mobile banking dengan UI/UX modern dan fitur keamanan tinggi',
     category: 'app',
-    image: '/portfolio/mobile-app-1.jpg',
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop',
     technologies: ['React Native', 'Node.js', 'PostgreSQL', 'JWT'],
     projectUrl: 'https://example.com',
     featured: true,
@@ -36,7 +36,7 @@ const portfolioItems = [
     title: 'Sistem Manajemen Skripsi',
     description: 'Platform digital untuk manajemen dan monitoring progress skripsi mahasiswa',
     category: 'academic',
-    image: '/portfolio/academic-1.jpg',
+    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop',
     technologies: ['Laravel', 'MySQL', 'Bootstrap', 'Chart.js'],
     projectUrl: 'https://example.com',
     featured: false,
@@ -46,7 +46,7 @@ const portfolioItems = [
     title: 'Restaurant Management System',
     description: 'Sistem manajemen restoran dengan POS dan inventory management',
     category: 'website',
-    image: '/portfolio/restaurant-1.jpg',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop',
     technologies: ['React', 'Express.js', 'MongoDB', 'Socket.io'],
     projectUrl: 'https://example.com',
     featured: true,
@@ -56,7 +56,7 @@ const portfolioItems = [
     title: 'Fitness Tracking App',
     description: 'Aplikasi tracking fitness dengan fitur workout planner dan nutrition guide',
     category: 'app',
-    image: '/portfolio/fitness-app-1.jpg',
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop',
     technologies: ['Flutter', 'Firebase', 'Google Fit API'],
     projectUrl: 'https://example.com',
     featured: false,
@@ -66,7 +66,7 @@ const portfolioItems = [
     title: 'Thesis Research Platform',
     description: 'Platform penelitian untuk mahasiswa dengan database jurnal dan tools analisis',
     category: 'academic',
-    image: '/portfolio/research-1.jpg',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop',
     technologies: ['Django', 'PostgreSQL', 'Elasticsearch', 'D3.js'],
     projectUrl: 'https://example.com',
     featured: false,
@@ -132,7 +132,7 @@ export default function PortfolioSection() {
 
         {/* Portfolio Grid */}
         <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {filteredItems.map((item, index) => (
               <motion.div
                 key={`${activeCategory}-${item.id}`}
@@ -149,11 +149,6 @@ export default function PortfolioSection() {
                       alt={item.title}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      onError={(e) => {
-                        // Fallback to placeholder if image fails to load
-                        const target = e.target as HTMLImageElement
-                        target.src = `https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=center`
-                      }}
                     />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                       <Button size="sm" variant="secondary" asChild>
@@ -165,7 +160,7 @@ export default function PortfolioSection() {
                       {item.githubUrl && (
                         <Button size="sm" variant="secondary" asChild>
                           <a href={item.githubUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4 mr-2" />
+                            <Code className="h-4 w-4 mr-2" />
                             Code
                           </a>
                         </Button>

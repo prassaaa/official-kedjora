@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { Star, ChevronLeft, ChevronRight, Quote, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -14,7 +13,7 @@ const testimonials = [
     id: 1,
     name: 'Sarah Wijaya',
     role: 'CEO, Fashion Store',
-    avatar: '/testimonials/avatar-1.jpg',
+    avatar: 'https://ui-avatars.com/api/?name=Sarah+Wijaya&background=3b82f6&color=fff',
     rating: 5,
     message: 'Website e-commerce yang dibuat sangat profesional dan user-friendly. Penjualan online kami meningkat 300% setelah menggunakan website baru. Tim Kedjora sangat responsif dan detail dalam pengerjaan.',
     project: 'E-Commerce Website',
@@ -23,7 +22,7 @@ const testimonials = [
     id: 2,
     name: 'Ahmad Rizki',
     role: 'Mahasiswa Teknik Informatika',
-    avatar: '/testimonials/avatar-2.jpg',
+    avatar: 'https://ui-avatars.com/api/?name=Ahmad+Rizki&background=10b981&color=fff',
     rating: 5,
     message: 'Bantuan untuk skripsi sangat membantu! Mendapat bimbingan yang detail dan berkualitas. Alhamdulillah skripsi saya lulus dengan nilai A. Terima kasih Kedjora!',
     project: 'Skripsi Sistem Informasi',
@@ -32,7 +31,7 @@ const testimonials = [
     id: 3,
     name: 'Budi Santoso',
     role: 'Owner, Restaurant Chain',
-    avatar: '/testimonials/avatar-3.jpg',
+    avatar: 'https://ui-avatars.com/api/?name=Budi+Santoso&background=f59e0b&color=fff',
     rating: 5,
     message: 'Aplikasi POS untuk restoran kami sangat membantu dalam mengelola operasional. Interface yang mudah digunakan dan fitur-fitur yang lengkap. Highly recommended!',
     project: 'Restaurant POS App',
@@ -41,7 +40,7 @@ const testimonials = [
     id: 4,
     name: 'Lisa Chen',
     role: 'Marketing Manager',
-    avatar: '/testimonials/avatar-4.jpg',
+    avatar: 'https://ui-avatars.com/api/?name=Lisa+Chen&background=8b5cf6&color=fff',
     rating: 5,
     message: 'Website company profile yang dibuat sangat elegan dan profesional. Banyak klien yang memberikan feedback positif tentang website kami. Great job!',
     project: 'Company Profile Website',
@@ -50,7 +49,7 @@ const testimonials = [
     id: 5,
     name: 'Dian Pratiwi',
     role: 'Mahasiswa Psikologi',
-    avatar: '/testimonials/avatar-5.jpg',
+    avatar: 'https://ui-avatars.com/api/?name=Dian+Pratiwi&background=ec4899&color=fff',
     rating: 5,
     message: 'Tugas-tugas kuliah yang dibantu selalu berkualitas dan tepat waktu. Penjelasan yang diberikan juga sangat detail sehingga saya bisa memahami materinya dengan baik.',
     project: 'Tugas Kuliah Psikologi',
@@ -59,7 +58,7 @@ const testimonials = [
     id: 6,
     name: 'Reza Firmansyah',
     role: 'Startup Founder',
-    avatar: '/testimonials/avatar-6.jpg',
+    avatar: 'https://ui-avatars.com/api/?name=Reza+Firmansyah&background=06b6d4&color=fff',
     rating: 5,
     message: 'Aplikasi mobile untuk startup kami dikerjakan dengan sangat profesional. Dari UI/UX design hingga development, semuanya sesuai ekspektasi bahkan lebih!',
     project: 'Mobile App Development',
@@ -153,17 +152,8 @@ export default function TestimonialsSection() {
                     </blockquote>
                     
                     <div className="flex items-center gap-4">
-                      <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                        <Image
-                          src={testimonials[currentIndex].avatar}
-                          alt={testimonials[currentIndex].name}
-                          fill
-                          className="object-cover"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement
-                            target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[currentIndex].name)}&background=3b82f6&color=fff`
-                          }}
-                        />
+                      <div className="relative h-12 w-12 overflow-hidden rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                        <User className="h-6 w-6 text-primary/60" />
                       </div>
                       
                       <div className="flex-1">

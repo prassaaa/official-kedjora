@@ -202,7 +202,7 @@ export default function PortfolioPage() {
 
       {/* Portfolio Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {filteredItems.map((item, index) => (
             <motion.div
               key={`${activeCategory}-${item.id}`}
@@ -214,12 +214,14 @@ export default function PortfolioPage() {
             >
               <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300">
                 <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+                  <div className="relative w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    <div className="text-center p-4">
+                      <div className="w-16 h-16 bg-primary/20 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <ExternalLink className="h-8 w-8 text-primary/60" />
+                      </div>
+                      <p className="text-sm text-muted-foreground">Portfolio Image</p>
+                    </div>
+                  </div>
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                     <Button size="sm" variant="secondary" asChild>
                       <a href={item.projectUrl} target="_blank" rel="noopener noreferrer">
