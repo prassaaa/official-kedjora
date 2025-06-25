@@ -154,7 +154,7 @@ export default function TestimonialsSection() {
                     <Quote className="h-8 w-8 text-primary/20 mb-6" />
                     
                     <blockquote className="text-lg leading-8 text-foreground mb-8">
-                      "{testimonials[currentIndex].message}"
+                      &ldquo;{testimonials[currentIndex].message}&rdquo;
                     </blockquote>
                     
                     <div className="flex items-center gap-4">
