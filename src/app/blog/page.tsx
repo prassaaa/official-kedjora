@@ -186,6 +186,7 @@ export default function BlogPage() {
                     src={post.featuredImage}
                     alt={post.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
                   <div className="absolute top-4 left-4">
@@ -290,6 +291,7 @@ export default function BlogPage() {
                           src={post.featuredImage}
                           alt={post.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover"
                         />
                       </div>
@@ -393,6 +395,7 @@ export default function BlogPage() {
                           src={post.featuredImage}
                           alt={post.title}
                           fill
+                          sizes="64px"
                           className="object-cover rounded"
                         />
                       </div>
