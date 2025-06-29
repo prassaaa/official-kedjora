@@ -95,7 +95,7 @@ export default function Footer() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
+      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:px-8">
         {/* Newsletter section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

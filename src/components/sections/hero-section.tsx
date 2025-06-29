@@ -88,25 +88,12 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-16">
-        <div className="text-center">
-          {/* Badge - Centered at top */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
-            <div className="inline-flex items-center rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white border border-white/20">
-              <Sparkles className="mr-2 h-4 w-4 text-yellow-400" />
-              <span>Dipercaya oleh 300+ Klien</span>
-            </div>
-          </motion.div>
-
+      <div className="relative mx-auto max-w-6xl px-8 py-16">
+        <div className="text-center px-4">
           {/* Main Content Area - Text and Image Side by Side */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
             {/* Left Side - Text Content */}
-            <div className="text-center lg:text-left lg:pl-8">
+            <div className="text-center lg:text-left lg:pr-12">
               {/* Main heading */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -147,11 +134,11 @@ export default function HeroSection() {
             </div>
 
             {/* Right Side - Hero Animation Image */}
-            <div className="relative h-[400px] lg:h-[500px]">
+            <div className="relative h-[400px] lg:h-[500px] lg:pl-12">
               {/* Subtle floating tools around the main image */}
               {freelanceTools.map((tool, index) => (
                 <motion.div
-                  key={index}
+                  key={`floating-tool-${index}`}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ 
                     opacity: [0.3, 0.6, 0.3],
@@ -235,18 +222,21 @@ export default function HeroSection() {
 
                 {/* Floating badge */}
                 <motion.div
+                  key="freelance-badge"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.5, duration: 0.8 }}
                   className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30"
                 >
                   <motion.div
+                    key="badge-animation"
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-4 py-2 shadow-xl border border-white/20"
                   >
-                    <p className="text-white font-semibold text-sm flex items-center">
+                    <div className="text-white font-semibold text-sm flex items-center">
                       <motion.div
+                        key="sparkles-rotation"
                         animate={{ rotate: 360 }}
                         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                         className="mr-2"
@@ -254,7 +244,7 @@ export default function HeroSection() {
                         <Sparkles className="w-4 h-4" />
                       </motion.div>
                       Freelance Professional
-                    </p>
+                    </div>
                   </motion.div>
                 </motion.div>
               </motion.div>

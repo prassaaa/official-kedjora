@@ -142,7 +142,7 @@ export default function PortfolioPage() {
   }, [activeCategory, searchQuery])
 
   return (
-    <div className="container mx-auto px-4 py-16 pt-24">
+    <div className="container mx-auto max-w-6xl px-4 py-16 pt-24">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

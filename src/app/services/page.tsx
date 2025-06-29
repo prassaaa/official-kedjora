@@ -126,7 +126,7 @@ export default function ServicesPage() {
         />
       </div>
 
-      <div className="relative container mx-auto px-4 py-16">
+      <div className="relative container mx-auto max-w-6xl px-4 py-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
