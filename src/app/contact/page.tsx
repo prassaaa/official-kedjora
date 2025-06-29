@@ -223,7 +223,7 @@ export default function ContactPage() {
                 <div>
                   <h4 className="font-semibold mb-2">Alamat</h4>
                   <p className="text-sm text-muted-foreground">
-                    Jakarta, Indonesia<br />
+                    Kediri, Indonesia<br />
                     (Remote & On-site Available)
                   </p>
                 </div>

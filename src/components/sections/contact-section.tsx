@@ -102,7 +102,7 @@ const officeInfo = [
   {
     icon: MapPin,
     label: 'Lokasi Kantor',
-    value: 'Jakarta, Indonesia',
+    value: 'Kediri, Indonesia',
   },
   {
     icon: Clock,

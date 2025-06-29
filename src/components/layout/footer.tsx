@@ -239,7 +239,7 @@ export default function Footer() {
                 <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center">
                   <MapPin className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm">Jakarta, Indonesia</span>
+                <span className="text-sm">Kediri, Indonesia</span>
               </motion.div>
             </div>
             

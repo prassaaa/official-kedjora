@@ -19,7 +19,7 @@ const floatingElements = [
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24">
       {/* Animated background elements */}
       <div className="absolute inset-0 -z-10">
         {/* Gradient orbs */}
