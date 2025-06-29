@@ -720,107 +720,109 @@ export default function TestimonialsPage() {
         )}
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
-            {filteredTestimonials.map((testimonial, index) => {
-              const CategoryIcon = getCategoryIcon(testimonial.category)
-              const categoryColor = getCategoryColor(testimonial.category)
-              
-              return (
-                <motion.div
-                  key={`${activeCategory}-${testimonial.id}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  layout
-                  whileHover={{ y: -8 }}
-                  className="group"
-                >
-                  <Card className="h-full overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg relative">
-                    {/* Background Quote */}
-                    <div className="absolute top-4 right-4 opacity-10">
-                      <Quote className="h-16 w-16 text-gray-400 transform rotate-12" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <AnimatePresence mode="popLayout">
+          {filteredTestimonials.map((testimonial, index) => {
+            const CategoryIcon = getCategoryIcon(testimonial.category)
+            const categoryColor = getCategoryColor(testimonial.category)
+            
+            return (
+              <motion.div
+                key={`${activeCategory}-${testimonial.id}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                layout
+                whileHover={{ y: -8 }}
+                className="group"
+              >
+                <Card className="h-full overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg relative">
+                  {/* Header dengan Badges - Fixed Layout */}
+                  <div className="relative px-4 pt-4 pb-2">
+                    {/* Background Quote - Positioned better */}
+                    <div className="absolute top-2 right-2 opacity-5">
+                      <Quote className="h-20 w-20 text-gray-400 transform rotate-12" />
                     </div>
                     
-                    {/* Category Badge */}
-                    <div className="absolute top-4 left-4">
-                      <Badge className={`bg-gradient-to-r ${categoryColor} text-white border-0 capitalize font-semibold`}>
-                        <CategoryIcon className="h-3 w-3 mr-1" />
+                    {/* Badges Container - Proper spacing */}
+                    <div className="flex items-start justify-between gap-2 mb-4">
+                      {/* Category Badge - Left side */}
+                      <Badge className={`bg-gradient-to-r ${categoryColor} text-white border-0 capitalize font-semibold text-xs px-2 py-1 flex items-center gap-1 flex-shrink-0`}>
+                        <CategoryIcon className="h-3 w-3" />
                         {testimonial.category === 'website' ? 'Website' : 
-                          testimonial.category === 'app' ? 'Mobile App' : 'Academic'}
+                        testimonial.category === 'app' ? 'Mobile' : 'Academic'}
+                      </Badge>
+
+                      {/* Featured Badge - Right side */}
+                      {testimonial.featured && (
+                        <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 font-semibold text-xs px-2 py-1 flex items-center gap-1 flex-shrink-0">
+                          <Star className="h-3 w-3" />
+                          Featured
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <CardContent className="px-6 pb-6 pt-0">
+                    {/* User Info - Better spacing */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        className={`relative w-12 h-12 overflow-hidden rounded-full bg-gradient-to-r ${categoryColor} flex items-center justify-center shadow-lg flex-shrink-0`}
+                      >
+                        <User className="h-6 w-6 text-white" />
+                      </motion.div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-bold text-base text-foreground group-hover:text-yellow-600 transition-colors truncate">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-muted-foreground font-medium truncate">
+                          {testimonial.role}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Rating - Improved spacing */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="flex">
+                        {renderStars(testimonial.rating)}
+                      </div>
+                      <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                        {testimonial.rating}.0/5
+                      </span>
+                    </div>
+
+                    {/* Project Badge - Better positioning */}
+                    <div className="mb-4">
+                      <Badge variant="outline" className="text-xs font-medium px-3 py-1">
+                        📋 {testimonial.project}
                       </Badge>
                     </div>
 
-                    {/* Featured Badge */}
-                    {testimonial.featured && (
-                      <div className="absolute top-4 right-20">
-                        <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 font-semibold">
-                          <Star className="h-3 w-3 mr-1" />
-                          Featured
-                        </Badge>
-                      </div>
-                    )}
-                    
-                    <CardContent className="p-6 relative z-10">
-                      {/* Header */}
-                      <div className="flex items-center gap-4 mb-6">
-                        <motion.div
-                          whileHover={{ scale: 1.1 }}
-                          className={`relative w-14 h-14 overflow-hidden rounded-full bg-gradient-to-r ${categoryColor} flex items-center justify-center shadow-lg`}
-                        >
-                          <User className="h-7 w-7 text-white" />
-                        </motion.div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-lg text-foreground group-hover:text-yellow-600 transition-colors">
-                            {testimonial.name}
-                          </h4>
-                          <p className="text-sm text-muted-foreground font-medium">
-                            {testimonial.role}
-                          </p>
-                        </div>
-                      </div>
+                    {/* Message - Better typography */}
+                    <blockquote className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 mb-4 relative">
+                      <span className="text-xl text-yellow-500 absolute -top-1 -left-1">&ldquo;</span>
+                      <span className="pl-5 block">{testimonial.message}</span>
+                      <span className="text-xl text-yellow-500 float-right">&ldquo;</span>
+                    </blockquote>
 
-                      {/* Rating */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="flex">
-                          {renderStars(testimonial.rating)}
-                        </div>
-                        <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
-                          {testimonial.rating}.0/5
-                        </span>
-                      </div>
-
-                      {/* Project Badge */}
-                      <div className="mb-4">
-                        <Badge variant="outline" className="text-sm font-medium">
-                          📋 {testimonial.project}
-                        </Badge>
-                      </div>
-
-                      {/* Message */}
-                      <blockquote className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 mb-6 relative">
-                        <span className="text-2xl text-yellow-500 absolute -top-2 -left-1">&ldquo;</span>
-                        <span className="pl-4">{testimonial.message}</span>
-                        <span className="text-2xl text-yellow-500">&rdquo;</span>
-                      </blockquote>
-
-                      {/* Date */}
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <Calendar className="h-3 w-3 mr-1" />
-                        {new Date(testimonial.date).toLocaleDateString('id-ID', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
-        </div>
+                    {/* Date - Bottom positioning */}
+                    <div className="flex items-center text-xs text-muted-foreground pt-2 border-t border-gray-100 dark:border-gray-700">
+                      <Calendar className="h-3 w-3 mr-2" />
+                      {new Date(testimonial.date).toLocaleDateString('id-ID', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )
+          })}
+        </AnimatePresence>
+      </div>
 
         {/* No Results */}
         {filteredTestimonials.length === 0 && (
