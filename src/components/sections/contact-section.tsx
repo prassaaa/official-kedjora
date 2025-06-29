@@ -9,6 +9,7 @@ import { Mail, Phone, MessageCircle, Send, CheckCircle, MapPin, Clock, Shield, Z
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { Select } from '@/components/ui/select'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SITE_CONFIG } from '@/constants'
 import Link from 'next/link'
@@ -531,11 +532,12 @@ export default function ContactSection() {
                         whileHover={{ scale: 1.02 }}
                         className="relative"
                       >
-                        <select
+                        <Select
                           {...register('service')}
                           onFocus={() => setFocusedField('service')}
                           onBlur={() => setFocusedField(null)}
-                          className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 ${
+                          placeholder="Pilih Jenis Layanan"
+                          className={`transition-all duration-300 ${
                             errors.service 
                               ? 'border-red-500 focus:border-red-500' 
                               : focusedField === 'service' 
@@ -543,13 +545,16 @@ export default function ContactSection() {
                               : ''
                           }`}
                         >
-                          <option value="">Pilih Jenis Layanan</option>
                           {services.map((service) => (
-                            <option key={service} value={service}>
+                            <option 
+                              key={service} 
+                              value={service}
+                              className="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
+                            >
                               {service}
                             </option>
                           ))}
-                        </select>
+                        </Select>
                         {errors.service && (
                           <motion.p
                             initial={{ opacity: 0, y: -10 }}
@@ -567,11 +572,12 @@ export default function ContactSection() {
                       whileHover={{ scale: 1.02 }}
                       className="relative"
                     >
-                      <select
+                      <Select
                         {...register('budget')}
                         onFocus={() => setFocusedField('budget')}
                         onBlur={() => setFocusedField(null)}
-                        className={`flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-300 ${
+                        placeholder="Pilih Rentang Budget"
+                        className={`transition-all duration-300 ${
                           errors.budget 
                             ? 'border-red-500 focus:border-red-500' 
                             : focusedField === 'budget' 
@@ -579,13 +585,16 @@ export default function ContactSection() {
                             : ''
                         }`}
                       >
-                        <option value="">Pilih Rentang Budget</option>
                         {budgetRanges.map((range) => (
-                          <option key={range} value={range}>
+                          <option 
+                            key={range} 
+                            value={range}
+                            className="text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
+                          >
                             {range}
                           </option>
                         ))}
-                      </select>
+                      </Select>
                       {errors.budget && (
                         <motion.p
                           initial={{ opacity: 0, y: -10 }}
