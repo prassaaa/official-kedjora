@@ -20,6 +20,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 3D perspective for hover effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Star, Users, CheckCircle, Sparkles, Zap, Target } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, Star, Users, CheckCircle, Sparkles, Zap, Target, Monitor, Smartphone, Coffee, Code } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const stats = [
@@ -17,9 +18,17 @@ const floatingElements = [
   { icon: Target, position: 'bottom-40 left-20', delay: 1 },
 ]
 
+// Simplified floating tools
+const freelanceTools = [
+  { icon: Monitor, position: 'top-32 left-16', delay: 0, rotation: 15 },
+  { icon: Smartphone, position: 'top-48 right-24', delay: 1, rotation: -20 },
+  { icon: Coffee, position: 'bottom-32 left-24', delay: 2, rotation: 10 },
+  { icon: Code, position: 'bottom-48 right-16', delay: 3, rotation: -15 },
+]
+
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24">
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pt-24 min-h-[85vh]">
       {/* Animated background elements */}
       <div className="absolute inset-0 -z-10">
         {/* Gradient orbs */}
@@ -79,9 +88,9 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 flex items-center min-h-screen">
-        <div className="mx-auto max-w-4xl text-center">
-          {/* Badge */}
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
+        <div className="text-center">
+          {/* Badge - Centered at top */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,51 +103,170 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Main heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            <h1 className="text-5xl font-bold tracking-tight text-white sm:text-7xl">
-              Wujudkan{' '}
-              <motion.span 
-                className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400"
-                animate={{
-                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                style={{
-                  backgroundSize: '200% 200%'
-                }}
+          {/* Main Content Area - Text and Image Side by Side */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+            {/* Left Side - Text Content */}
+            <div className="text-center lg:text-left lg:pl-8">
+              {/* Main heading */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
               >
-                Visi Digital
-              </motion.span>{' '}
-              Anda Menjadi Kenyataan
-            </h1>
-          </motion.div>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-8 text-xl leading-8 text-gray-300 max-w-3xl mx-auto"
-          >
-            Layanan pengembangan web profesional, aplikasi mobile, dan bantuan akademik. 
-            Dari konsep hingga deployment, kami mewujudkan ide Anda dengan teknologi terdepan 
-            dan solusi desain yang inovatif.
-          </motion.p>
-          
-          {/* CTA Buttons */}
+                <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
+                  Wujudkan{' '}
+                  <motion.span 
+                    className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400"
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                    style={{
+                      backgroundSize: '200% 200%'
+                    }}
+                  >
+                    Visi Digital
+                  </motion.span>{' '}
+                  Anda Menjadi Kenyataan
+                </h1>
+              </motion.div>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mt-8 text-lg leading-8 text-gray-300 max-w-2xl lg:mx-0"
+              >
+                Layanan pengembangan web profesional, aplikasi mobile, dan bantuan akademik. 
+                Dari konsep hingga deployment, kami mewujudkan ide Anda dengan teknologi terdepan.
+              </motion.p>
+            </div>
+
+            {/* Right Side - Hero Animation Image */}
+            <div className="relative h-[400px] lg:h-[500px]">
+              {/* Subtle floating tools around the main image */}
+              {freelanceTools.map((tool, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ 
+                    opacity: [0.3, 0.6, 0.3],
+                    scale: [0.8, 1.1, 0.8],
+                    rotate: [tool.rotation - 5, tool.rotation + 5, tool.rotation - 5],
+                    y: [0, -10, 0]
+                  }}
+                  transition={{
+                    duration: 3 + index,
+                    repeat: Infinity,
+                    delay: tool.delay,
+                    ease: "easeInOut"
+                  }}
+                  className={`absolute ${tool.position} text-white/20 z-10`}
+                >
+                  <tool.icon size={32} />
+                </motion.div>
+              ))}
+
+              {/* Main Hero Animation Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ 
+                  duration: 1.2, 
+                  delay: 0.5,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="relative w-full h-full flex items-center justify-center"
+              >
+                {/* Glowing background effect */}
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.3, 0.5, 0.3]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl"
+                />
+                
+                {/* Main Image */}
+                <motion.div
+                  whileHover={{ 
+                    scale: 1.05,
+                    rotateY: 5,
+                    rotateX: 5
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="relative z-20 perspective-1000"
+                >
+                  <div className="relative w-full max-w-lg mx-auto">
+                    <Image
+                      src="/animasi-hero.png"
+                      alt="Kedjora Freelance Animation - Professional Web Development Process"
+                      width={500}
+                      height={500}
+                      className="w-full h-auto object-contain drop-shadow-2xl"
+                      priority
+                    />
+                    
+                    {/* Animated border glow */}
+                    <motion.div
+                      animate={{
+                        opacity: [0.5, 1, 0.5],
+                        scale: [0.95, 1.05, 0.95]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-pink-400/30 to-cyan-400/30 rounded-2xl blur-xl -z-10"
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Floating badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.5, duration: 0.8 }}
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30"
+                >
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-4 py-2 shadow-xl border border-white/20"
+                  >
+                    <p className="text-white font-semibold text-sm flex items-center">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        className="mr-2"
+                      >
+                        <Sparkles className="w-4 h-4" />
+                      </motion.div>
+                      Freelance Professional
+                    </p>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* CTA Buttons - Centered below content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
+            className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
           >
             <Link href="/contact">
               <motion.div
@@ -185,12 +313,12 @@ export default function HeroSection() {
             </Link>
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats - Centered at bottom */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="mx-auto mt-20 max-w-4xl"
+            className="mx-auto max-w-4xl"
           >
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
               {stats.map((stat, index) => (
@@ -202,58 +330,52 @@ export default function HeroSection() {
                   whileHover={{ scale: 1.05 }}
                   className="relative group"
                 >
-                  <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20">
+                  <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20">
                     <div className="flex flex-col items-center">
                       <motion.div 
-                        className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl mb-4"
+                        className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl mb-3"
                         whileHover={{ 
                           rotate: 360,
                           scale: 1.1
                         }}
                         transition={{ duration: 0.6 }}
                       >
-                        <stat.icon className="h-8 w-8 text-white" />
+                        <stat.icon className="h-6 w-6 text-white" />
                       </motion.div>
-                      <dt className="text-base leading-7 text-gray-300 text-center mb-2">
+                      <dt className="text-sm leading-6 text-gray-300 text-center mb-1">
                         {stat.name}
                       </dt>
-                      <dd className="text-4xl font-bold tracking-tight text-white">
+                      <dd className="text-2xl font-bold tracking-tight text-white">
                         {stat.value}
                       </dd>
                     </div>
-                    
-                    {/* Hover effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      initial={false}
-                    />
                   </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
+        </div>
 
-          {/* Scroll indicator */}
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="flex flex-col items-center mt-12"
+        >
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center items-start"
           >
             <motion.div
-              animate={{ y: [0, 8, 0] }}
+              animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center items-start"
-            >
-              <motion.div
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1 h-3 bg-white/60 rounded-full mt-2"
-              />
-            </motion.div>
-            <p className="text-white/60 text-sm mt-2 text-center">Gulir untuk menjelajahi</p>
+              className="w-1 h-3 bg-white/60 rounded-full mt-2"
+            />
           </motion.div>
-        </div>
+          <p className="text-white/60 text-sm mt-2 text-center">Gulir untuk menjelajahi</p>
+        </motion.div>
       </div>
     </section>
   )
