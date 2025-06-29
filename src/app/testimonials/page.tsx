@@ -475,7 +475,7 @@ export default function TestimonialsPage() {
           </div>
         </motion.div>
 
-        {/* Add Testimonial Button */}
+        {/* Add Testimonial Button - Updated with icon change */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -491,13 +491,19 @@ export default function TestimonialsPage() {
               className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white border-0 font-bold px-8 py-6 text-base shadow-lg"
               size="lg"
             >
-              <Plus className="h-5 w-5 mr-2" />
-              Bagikan Pengalaman Anda
+              <motion.div
+                animate={{ rotate: showForm ? 45 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="mr-2"
+              >
+                <Plus className="h-5 w-5" />
+              </motion.div>
+              {showForm ? 'Tutup Form' : 'Bagikan Pengalaman Anda'}
             </Button>
           </motion.div>
         </motion.div>
 
-        {/* Add Testimonial Form */}
+        {/* Updated Form with better dropdown styling */}
         <AnimatePresence>
           {showForm && (
             <motion.div
@@ -615,14 +621,34 @@ export default function TestimonialsPage() {
                           <label className="block text-sm font-semibold mb-3 text-foreground">
                             Kategori Layanan *
                           </label>
-                          <select
-                            {...register('category')}
-                            className="w-full py-3 px-4 border border-input bg-background rounded-md text-sm"
-                          >
-                            <option value="website">Website Development</option>
-                            <option value="app">Mobile App Development</option>
-                            <option value="academic">Academic Writing</option>
-                          </select>
+                          <div className="relative">
+                            <select
+                              {...register('category')}
+                              className="w-full py-3 px-4 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-400 transition-all duration-200 appearance-none cursor-pointer"
+                            >
+                              <option value="website" className="py-2 px-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                🌐 Website Development
+                              </option>
+                              <option value="app" className="py-2 px-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                📱 Mobile App Development
+                              </option>
+                              <option value="academic" className="py-2 px-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                🎓 Academic Writing
+                              </option>
+                            </select>
+                            
+                            {/* Custom dropdown arrow */}
+                            <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </div>
+                          </div>
+                          {errors.category && (
+                            <p className="text-sm text-red-500 mt-2">
+                              {errors.category.message}
+                            </p>
+                          )}
                         </div>
                         <div>
                           <label className="block text-sm font-semibold mb-3 text-foreground">
