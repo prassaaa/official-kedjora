@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+/* Plus Jakarta Sans Font Optimization */
+.font-sans {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-feature-settings: "cv01", "cv03", "cv04", "cv11";
+}
+
+/* Enhanced Typography for Plus Jakarta Sans */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.text-4xl, .text-5xl, .text-6xl, .text-7xl {
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+/* Button text optimization */
+button, .btn {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Body text optimization */
+p, body {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+}
+
 /* Floating Header Styles */
 .floating-header {
   backdrop-filter: blur(20px);

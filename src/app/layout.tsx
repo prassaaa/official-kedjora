@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
@@ -7,9 +7,11 @@ import { AuthProvider } from '@/lib/auth-context';
 import { SITE_CONFIG } from '@/constants';
 import ClientOnly from '@/components/client-only';
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -73,7 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased`} suppressHydrationWarning>
         <AuthProvider>
           <div className="relative flex min-h-screen flex-col">
             <ClientOnly>
