@@ -196,7 +196,7 @@ export default function ServicesSection() {
                       
                       <div className="text-3xl font-black text-foreground mb-4 flex items-baseline">
                         <span className="text-lg text-muted-foreground mr-1">Rp</span>
-                        {formatCurrency(popularPackage.price).replace('Rp ', '')}
+                        {formatCurrency(popularPackage.price).replace('Rp', '')}
                       </div>
                       
                       <ul className="space-y-3">
@@ -262,56 +262,6 @@ export default function ServicesSection() {
             )
           })}
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mx-auto mt-20 max-w-4xl text-center"
-        >
-          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-12 text-white relative overflow-hidden">
-            <motion.div
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-xl"
-            />
-            <motion.div
-              animate={{ rotate: [360, 0] }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full blur-xl"
-            />
-            
-            <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-4">
-                Siap Memulai Perjalanan Digital Anda?
-              </h3>
-              <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
-                Tim ahli kami siap membantu Anda memilih solusi sempurna 
-                yang sesuai dengan kebutuhan dan anggaran Anda. Mulai dengan konsultasi gratis hari ini!
-              </p>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/contact">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 font-semibold px-8 py-6 text-base">
-                      Konsultasi Gratis
-                    </Button>
-                  </motion.div>
-                </Link>
-                
-                <Link href="/services">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 font-semibold px-8 py-6 text-base">
-                      Lihat Semua Layanan
-                    </Button>
-                  </motion.div>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Link from 'next/link'
 import Image from 'next/image'
-import { ExternalLink, Code, ArrowRight, Star, Eye, Calendar } from 'lucide-react'
+import { ExternalLink, Code, Star, Eye, Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -358,99 +357,6 @@ export default function PortfolioSection() {
             ))}
           </AnimatePresence>
         </div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-20 text-center"
-        >
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-white relative overflow-hidden">
-            {/* Background animation */}
-            <motion.div
-              animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, 180, 360]
-              }}
-              transition={{ 
-                duration: 20, 
-                repeat: Infinity, 
-                ease: "linear"
-              }}
-              className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl"
-            />
-            <motion.div
-              animate={{ 
-                scale: [1.2, 1, 1.2],
-                rotate: [360, 180, 0]
-              }}
-              transition={{ 
-                duration: 25, 
-                repeat: Infinity, 
-                ease: "linear"
-              }}
-              className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"
-            />
-            
-            <div className="relative z-10">
-              <motion.div
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-block mb-4"
-              >
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto">
-                  <ArrowRight className="w-8 h-8" />
-                </div>
-              </motion.div>
-              
-              <h3 className="text-3xl font-bold mb-4">
-                Ingin Melihat Karya Luar Biasa Lainnya?
-              </h3>
-              
-              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Temukan portfolio lengkap proyek sukses kami dan lihat bagaimana kami dapat 
-                mewujudkan visi Anda dengan teknologi mutakhir dan solusi kreatif.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/portfolio">
-                  <motion.div 
-                    whileHover={{ scale: 1.05, y: -2 }} 
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button 
-                      size="lg" 
-                      className="bg-white text-purple-600 hover:bg-gray-100 font-bold px-8 py-6 text-base shadow-2xl"
-                    >
-                      <Eye className="mr-2 h-5 w-5" />
-                      Lihat Portfolio Lengkap
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </motion.div>
-                </Link>
-                
-                <Link href="/contact">
-                  <motion.div 
-                    whileHover={{ scale: 1.05, y: -2 }} 
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="border-2 border-white text-white hover:bg-white/10 font-bold px-8 py-6 text-base"
-                    >
-                      Mulai Proyek Anda
-                    </Button>
-                  </motion.div>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

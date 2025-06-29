@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Link from 'next/link'
 import { Star, ChevronLeft, ChevronRight, Quote, User, Play, Pause, ThumbsUp, MessageSquare } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
 // Mock data - replace with actual data from database
@@ -566,40 +564,6 @@ export default function TestimonialsSection() {
                 <div className="text-xs text-purple-200 mt-1">Delivery proyek</div>
               </motion.div>
             </div>
-          </div>
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-16 text-center"
-        >
-          <h3 className="text-2xl font-bold text-foreground mb-4">
-            Siap Bergabung dengan Kisah Sukses Kami?
-          </h3>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Jangan hanya membaca tentang kesuksesan - jadilah bagian darinya! Mari diskusikan bagaimana kami dapat membantu Anda mencapai hasil serupa.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/contact">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 px-8 py-6 text-base font-semibold">
-                  Mulai Proyek Anda
-                </Button>
-              </motion.div>
-            </Link>
-            
-            <Link href="/testimonials">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" size="lg" className="px-8 py-6 text-base font-semibold">
-                  Baca Semua Testimoni
-                </Button>
-              </motion.div>
-            </Link>
           </div>
         </motion.div>
       </div>

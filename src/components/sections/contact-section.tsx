@@ -696,54 +696,6 @@ export default function ContactSection() {
             </Card>
           </motion.div>
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-20 text-center"
-        >
-          <div className="max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Masih Ada Pertanyaan?
-            </h3>
-            <p className="text-muted-foreground text-lg mb-8">
-              Jangan ragu untuk menghubungi kami! Tim kami selalu siap membantu Anda menemukan solusi yang tepat.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href={SITE_CONFIG.links.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-base font-semibold">
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    Chat di WhatsApp
-                  </Button>
-                </Link>
-              </motion.div>
-              
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link href={`mailto:${SITE_CONFIG.links.email}`}>
-                  <Button variant="outline" size="lg" className="px-8 py-6 text-base font-semibold">
-                    <Mail className="mr-2 h-5 w-5" />
-                    Kirim Email
-                  </Button>
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
