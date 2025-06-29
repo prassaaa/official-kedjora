@@ -168,37 +168,6 @@ export default function AppServicePage() {
       </div>
 
       <div className="relative container mx-auto max-w-6xl px-4 py-16">
-        {/* Breadcrumb */}
-        <motion.nav
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex mb-8"
-          aria-label="Breadcrumb"
-        >
-          <ol className="inline-flex items-center space-x-1 md:space-x-3">
-            <li className="inline-flex items-center">
-              <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
-                Beranda
-              </Link>
-            </li>
-            <li>
-              <div className="flex items-center">
-                <span className="mx-2 text-muted-foreground">/</span>
-                <Link href="/services" className="text-muted-foreground hover:text-primary transition-colors">
-                  Layanan
-                </Link>
-              </div>
-            </li>
-            <li aria-current="page">
-              <div className="flex items-center">
-                <span className="mx-2 text-muted-foreground">/</span>
-                <span className="text-foreground font-medium">Pembuatan Aplikasi</span>
-              </div>
-            </li>
-          </ol>
-        </motion.nav>
-
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
