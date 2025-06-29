@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Star, Quote, Send, CheckCircle, Filter, Plus, User } from 'lucide-react'
+import Link from 'next/link'
+import { Star, Quote, Send, CheckCircle, Plus, User, Award, Sparkles, Monitor, Smartphone, GraduationCap, MessageCircle, Zap, Calendar, ArrowRight, Users, TrendingUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -23,7 +24,8 @@ const testimonials = [
     message: 'Website e-commerce yang dibuat sangat profesional dan user-friendly. Penjualan online kami meningkat 300% setelah menggunakan website baru. Tim Kedjora sangat responsif dan detail dalam pengerjaan.',
     project: 'E-Commerce Website',
     category: 'website',
-    date: '2024-01-15'
+    date: '2024-01-15',
+    featured: true
   },
   {
     id: 2,
@@ -34,7 +36,8 @@ const testimonials = [
     message: 'Bantuan untuk skripsi sangat membantu! Mendapat bimbingan yang detail dan berkualitas. Alhamdulillah skripsi saya lulus dengan nilai A. Terima kasih Kedjora!',
     project: 'Skripsi Sistem Informasi',
     category: 'academic',
-    date: '2024-02-20'
+    date: '2024-02-20',
+    featured: false
   },
   {
     id: 3,
@@ -45,7 +48,8 @@ const testimonials = [
     message: 'Aplikasi POS untuk restoran kami sangat membantu dalam mengelola operasional. Interface yang mudah digunakan dan fitur-fitur yang lengkap. Highly recommended!',
     project: 'Restaurant POS App',
     category: 'app',
-    date: '2024-03-10'
+    date: '2024-03-10',
+    featured: true
   },
   {
     id: 4,
@@ -56,7 +60,8 @@ const testimonials = [
     message: 'Website company profile yang dibuat sangat elegan dan profesional. Banyak klien yang memberikan feedback positif tentang website kami. Great job!',
     project: 'Company Profile Website',
     category: 'website',
-    date: '2024-01-25'
+    date: '2024-01-25',
+    featured: false
   },
   {
     id: 5,
@@ -67,7 +72,8 @@ const testimonials = [
     message: 'Tugas-tugas kuliah yang dibantu selalu berkualitas dan tepat waktu. Penjelasan yang diberikan juga sangat detail sehingga saya bisa memahami materinya dengan baik.',
     project: 'Tugas Kuliah Psikologi',
     category: 'academic',
-    date: '2024-02-05'
+    date: '2024-02-05',
+    featured: false
   },
   {
     id: 6,
@@ -78,7 +84,8 @@ const testimonials = [
     message: 'Aplikasi mobile untuk startup kami dikerjakan dengan sangat profesional. Dari UI/UX design hingga development, semuanya sesuai ekspektasi bahkan lebih!',
     project: 'Mobile App Development',
     category: 'app',
-    date: '2024-03-15'
+    date: '2024-03-15',
+    featured: true
   },
   {
     id: 7,
@@ -89,7 +96,8 @@ const testimonials = [
     message: 'Website toko online yang dibuat sangat membantu bisnis saya. Fitur-fitur lengkap dan mudah digunakan. Customer service juga sangat responsif.',
     project: 'Online Store Website',
     category: 'website',
-    date: '2024-01-30'
+    date: '2024-01-30',
+    featured: false
   },
   {
     id: 8,
@@ -100,22 +108,74 @@ const testimonials = [
     message: 'Bantuan untuk tugas akhir sangat berkualitas. Hasilnya memuaskan dan sesuai dengan standar kampus. Proses revisi juga cepat dan mudah.',
     project: 'Tugas Akhir Teknik',
     category: 'academic',
-    date: '2024-02-28'
+    date: '2024-02-28',
+    featured: false
   }
 ]
 
 const categories = [
-  { id: 'all', name: 'Semua', count: testimonials.length },
-  { id: 'website', name: 'Website', count: testimonials.filter(t => t.category === 'website').length },
-  { id: 'app', name: 'Aplikasi', count: testimonials.filter(t => t.category === 'app').length },
-  { id: 'academic', name: 'Akademik', count: testimonials.filter(t => t.category === 'academic').length },
+  { 
+    id: 'all', 
+    name: 'Semua Testimoni', 
+    count: testimonials.length, 
+    icon: MessageCircle,
+    color: 'from-purple-500 to-pink-500'
+  },
+  { 
+    id: 'website', 
+    name: 'Website', 
+    count: testimonials.filter(t => t.category === 'website').length,
+    icon: Monitor,
+    color: 'from-blue-500 to-cyan-500'
+  },
+  { 
+    id: 'app', 
+    name: 'Aplikasi', 
+    count: testimonials.filter(t => t.category === 'app').length,
+    icon: Smartphone,
+    color: 'from-purple-500 to-pink-500'
+  },
+  { 
+    id: 'academic', 
+    name: 'Akademik', 
+    count: testimonials.filter(t => t.category === 'academic').length,
+    icon: GraduationCap,
+    color: 'from-green-500 to-emerald-500'
+  },
 ]
+
+const getCategoryColor = (category: string) => {
+  switch (category) {
+    case 'website':
+      return 'from-blue-500 to-cyan-500'
+    case 'app':
+      return 'from-purple-500 to-pink-500'
+    case 'academic':
+      return 'from-green-500 to-emerald-500'
+    default:
+      return 'from-gray-500 to-gray-600'
+  }
+}
+
+const getCategoryIcon = (category: string) => {
+  switch (category) {
+    case 'website':
+      return Monitor
+    case 'app':
+      return Smartphone
+    case 'academic':
+      return GraduationCap
+    default:
+      return MessageCircle
+  }
+}
 
 const testimonialSchema = z.object({
   name: z.string().min(2, 'Nama minimal 2 karakter'),
   email: z.string().email('Email tidak valid'),
   role: z.string().min(2, 'Peran/jabatan minimal 2 karakter'),
   project: z.string().min(2, 'Nama proyek minimal 2 karakter'),
+  category: z.enum(['website', 'app', 'academic']),
   rating: z.number().min(1).max(5),
   message: z.string().min(10, 'Testimoni minimal 10 karakter'),
 })
@@ -138,7 +198,8 @@ export default function TestimonialsPage() {
   } = useForm<TestimonialFormData>({
     resolver: zodResolver(testimonialSchema),
     defaultValues: {
-      rating: 5
+      rating: 5,
+      category: 'website'
     }
   })
 
@@ -161,7 +222,7 @@ export default function TestimonialsPage() {
       setIsSubmitted(true)
       reset()
       
-      // Reset success state after 5 seconds
+      // Reset success state after 3 seconds
       setTimeout(() => {
         setIsSubmitted(false)
         setShowForm(false)
@@ -181,327 +242,689 @@ export default function TestimonialsPage() {
           i < rating 
             ? 'text-yellow-400 fill-current' 
             : 'text-gray-300'
-        } ${interactive ? 'cursor-pointer hover:text-yellow-400' : ''}`}
+        } ${interactive ? 'cursor-pointer hover:text-yellow-400 transition-colors' : ''}`}
         onClick={interactive && onRate ? () => onRate(i + 1) : undefined}
       />
     ))
   }
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-16 pt-24">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-16"
-      >
-        <h1 className="text-4xl font-bold mb-4">
-          Testimoni Klien
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Kepuasan klien adalah prioritas utama kami. Lihat apa kata mereka tentang layanan dan kualitas pekerjaan kami.
-        </p>
-      </motion.div>
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 pt-24">
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-l from-yellow-200/20 to-orange-200/20 dark:from-yellow-500/10 dark:to-orange-500/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute bottom-0 left-1/4 w-80 h-80 bg-gradient-to-r from-purple-200/20 to-pink-200/20 dark:from-purple-500/10 dark:to-pink-500/10 rounded-full blur-3xl"
+        />
+      </div>
 
-      {/* Stats */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
-      >
-        <Card className="text-center">
-          <CardContent className="pt-6">
-            <div className="text-3xl font-bold text-primary mb-2">4.9/5</div>
-            <div className="flex justify-center mb-2">
-              {renderStars(5)}
+      <div className="relative container mx-auto max-w-6xl px-4 py-16">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="inline-block mb-6"
+          >
+            <div className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              Client Testimonials
             </div>
-            <div className="text-sm text-muted-foreground">Rating Rata-rata</div>
-          </CardContent>
-        </Card>
-        <Card className="text-center">
-          <CardContent className="pt-6">
-            <div className="text-3xl font-bold text-primary mb-2">300+</div>
-            <div className="text-sm text-muted-foreground">Klien Puas</div>
-          </CardContent>
-        </Card>
-        <Card className="text-center">
-          <CardContent className="pt-6">
-            <div className="text-3xl font-bold text-primary mb-2">500+</div>
-            <div className="text-sm text-muted-foreground">Proyek Selesai</div>
-          </CardContent>
-        </Card>
-      </motion.div>
+          </motion.div>
 
-      {/* Filters and Add Testimonial */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-12"
-      >
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center lg:justify-start gap-2">
-          {categories.map((category) => (
-            <Button
-              key={category.id}
-              variant={activeCategory === category.id ? "default" : "outline"}
-              size="sm"
-              onClick={() => setActiveCategory(category.id)}
-              className="flex items-center gap-2"
+          <motion.div
+            whileHover={{ scale: 1.05, rotate: 5 }}
+            transition={{ duration: 0.3 }}
+            className="mx-auto flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 shadow-lg mb-6"
+          >
+            <Quote className="h-12 w-12 text-white" />
+          </motion.div>
+          
+          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            Testimoni Klien
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600">
+              Kepuasan Adalah Prioritas
+            </span>
+          </h1>
+          
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Kepuasan klien adalah prioritas utama kami. Lihat apa kata mereka tentang layanan berkualitas tinggi 
+            dan dedikasi tim kami dalam menghadirkan solusi digital terbaik.
+          </p>
+
+          {/* Quick stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-8 grid grid-cols-3 gap-8 max-w-2xl mx-auto"
+          >
+            <div className="text-center">
+              <div className="text-3xl font-bold text-yellow-600">4.9★</div>
+              <div className="text-sm text-muted-foreground">Rating Rata-rata</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-orange-600">300+</div>
+              <div className="text-sm text-muted-foreground">Klien Puas</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-600">500+</div>
+              <div className="text-sm text-muted-foreground">Proyek Selesai</div>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Featured Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="group"
             >
-              <Filter className="h-4 w-4" />
-              {category.name}
-              <Badge variant="secondary" className="ml-1 text-xs">
-                {category.count}
-              </Badge>
-            </Button>
-          ))}
-        </div>
+              <Card className="text-center p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:shadow-yellow-500/20">
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg"
+                >
+                  <TrendingUp className="w-8 h-8 text-white" />
+                </motion.div>
+                
+                <div className="text-3xl font-bold text-yellow-600 mb-2">98%</div>
+                <div className="flex justify-center mb-2">
+                  {renderStars(5)}
+                </div>
+                <div className="text-sm text-muted-foreground">Client Satisfaction Rate</div>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="group"
+            >
+              <Card className="text-center p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:shadow-purple-500/20 h-full">
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg"
+                >
+                  <Users className="w-8 h-8 text-white" />
+                </motion.div>
+
+                <div className="text-3xl font-bold text-purple-600 mb-2">300+</div>
+                <div className="flex justify-center mb-2">
+                  {renderStars(5)}
+                </div>
+                <div className="text-sm text-muted-foreground">Happy Clients</div>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="group"
+            >
+              <Card className="text-center p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:shadow-blue-500/20 h-full">
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg"
+                >
+                  <Award className="w-8 h-8 text-white" />
+                </motion.div>
+
+                <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
+                <div className="flex justify-center mb-2">
+                  {renderStars(5)}
+                </div>
+                <div className="text-sm text-muted-foreground">Completed Projects</div>
+              </Card>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Category Filters */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Kategori Testimoni
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Lihat feedback klien berdasarkan jenis layanan yang mereka gunakan
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((category, index) => (
+              <motion.div
+                key={category.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="group"
+              >
+                <Card 
+                  className={`cursor-pointer transition-all duration-300 h-full relative overflow-hidden ${
+                    activeCategory === category.id 
+                      ? 'ring-2 ring-yellow-500 shadow-xl shadow-yellow-500/25 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20' 
+                      : 'hover:shadow-lg bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border-0'
+                  }`}
+                  onClick={() => setActiveCategory(category.id)}
+                >
+                  <CardHeader className="text-center pb-4">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                      className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-r ${category.color} rounded-2xl flex items-center justify-center shadow-lg`}
+                    >
+                      <category.icon className="w-8 h-8 text-white" />
+                    </motion.div>
+                    
+                    <CardTitle className="text-lg font-bold text-foreground group-hover:text-yellow-600 transition-colors">
+                      {category.name}
+                    </CardTitle>
+                    
+                    <div className="flex items-center justify-center gap-2 mt-2">
+                      <Badge variant="outline" className="text-sm">
+                        {category.count} testimoni
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* Add Testimonial Button */}
-        <Button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2">
-          <Plus className="h-4 w-4" />
-          Tambah Testimoni
-        </Button>
-      </motion.div>
-
-      {/* Add Testimonial Form */}
-      <AnimatePresence>
-        {showForm && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mb-12"
+        >
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mb-12"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <Card>
-              <CardHeader>
-                <CardTitle>Bagikan Pengalaman Anda</CardTitle>
-                <CardDescription>
-                  Testimoni Anda akan membantu calon klien lain untuk mengenal kualitas layanan kami
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-8"
-                  >
-                    <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      Testimoni Terkirim!
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Terima kasih! Testimoni Anda akan ditampilkan setelah diverifikasi.
-                    </p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Nama Lengkap *
-                        </label>
-                        <Input
-                          placeholder="Masukkan nama lengkap"
-                          {...register('name')}
-                          className={errors.name ? 'border-red-500' : ''}
-                        />
-                        {errors.name && (
-                          <p className="text-sm text-red-500 mt-1">
-                            {errors.name.message}
-                          </p>
-                        )}
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Email *
-                        </label>
-                        <Input
-                          type="email"
-                          placeholder="nama@email.com"
-                          {...register('email')}
-                          className={errors.email ? 'border-red-500' : ''}
-                        />
-                        {errors.email && (
-                          <p className="text-sm text-red-500 mt-1">
-                            {errors.email.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Peran/Jabatan *
-                        </label>
-                        <Input
-                          placeholder="CEO, Mahasiswa, dll"
-                          {...register('role')}
-                          className={errors.role ? 'border-red-500' : ''}
-                        />
-                        {errors.role && (
-                          <p className="text-sm text-red-500 mt-1">
-                            {errors.role.message}
-                          </p>
-                        )}
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Nama Proyek *
-                        </label>
-                        <Input
-                          placeholder="Website E-commerce, Aplikasi Mobile, dll"
-                          {...register('project')}
-                          className={errors.project ? 'border-red-500' : ''}
-                        />
-                        {errors.project && (
-                          <p className="text-sm text-red-500 mt-1">
-                            {errors.project.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Rating *
-                      </label>
-                      <div className="flex items-center gap-2">
-                        <div className="flex">
-                          {renderStars(rating, true, (newRating) => setValue('rating', newRating))}
-                        </div>
-                        <span className="text-sm text-muted-foreground">
-                          ({rating}/5)
-                        </span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Testimoni *
-                      </label>
-                      <Textarea
-                        placeholder="Ceritakan pengalaman Anda bekerja sama dengan kami..."
-                        rows={4}
-                        {...register('message')}
-                        className={errors.message ? 'border-red-500' : ''}
-                      />
-                      {errors.message && (
-                        <p className="text-sm text-red-500 mt-1">
-                          {errors.message.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex gap-4">
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="flex items-center gap-2"
-                      >
-                        {isSubmitting ? (
-                          'Mengirim...'
-                        ) : (
-                          <>
-                            <Send className="h-4 w-4" />
-                            Kirim Testimoni
-                          </>
-                        )}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setShowForm(false)}
-                      >
-                        Batal
-                      </Button>
-                    </div>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Testimonials Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <AnimatePresence>
-          {filteredTestimonials.map((testimonial, index) => (
-            <motion.div
-              key={`${activeCategory}-${testimonial.id}`}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              layout
+            <Button 
+              onClick={() => setShowForm(!showForm)} 
+              className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white border-0 font-bold px-8 py-6 text-base shadow-lg"
+              size="lg"
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="relative w-12 h-12 overflow-hidden rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                      <User className="h-6 w-6 text-primary/60" />
+              <Plus className="h-5 w-5 mr-2" />
+              Bagikan Pengalaman Anda
+            </Button>
+          </motion.div>
+        </motion.div>
+
+        {/* Add Testimonial Form */}
+        <AnimatePresence>
+          {showForm && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-16"
+            >
+              <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-2xl">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                      <MessageCircle className="w-5 h-5 text-white" />
                     </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-foreground">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {testimonial.role}
+                    <CardTitle className="text-2xl font-bold">Bagikan Pengalaman Anda</CardTitle>
+                  </div>
+                  <CardDescription className="text-base">
+                    Testimoni Anda sangat berharga untuk membantu calon klien lain mengenal kualitas layanan kami
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isSubmitted ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-12"
+                    >
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.6 }}
+                        className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6"
+                      >
+                        <CheckCircle className="w-10 h-10 text-white" />
+                      </motion.div>
+                      <h3 className="text-2xl font-bold text-foreground mb-3">
+                        Testimoni Berhasil Dikirim!
+                      </h3>
+                      <p className="text-muted-foreground text-lg">
+                        Terima kasih atas feedback Anda. Testimoni akan ditampilkan setelah diverifikasi oleh tim kami.
                       </p>
-                    </div>
-                    <Quote className="h-6 w-6 text-primary/20" />
-                  </div>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-semibold mb-3 text-foreground">
+                            Nama Lengkap *
+                          </label>
+                          <Input
+                            placeholder="Masukkan nama lengkap Anda"
+                            {...register('name')}
+                            className={`py-3 ${errors.name ? 'border-red-500' : ''}`}
+                          />
+                          {errors.name && (
+                            <p className="text-sm text-red-500 mt-2">
+                              {errors.name.message}
+                            </p>
+                          )}
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold mb-3 text-foreground">
+                            Email *
+                          </label>
+                          <Input
+                            type="email"
+                            placeholder="nama@email.com"
+                            {...register('email')}
+                            className={`py-3 ${errors.email ? 'border-red-500' : ''}`}
+                          />
+                          {errors.email && (
+                            <p className="text-sm text-red-500 mt-2">
+                              {errors.email.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
 
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="flex">
-                      {renderStars(testimonial.rating)}
-                    </div>
-                    <Badge variant="outline" className="text-xs">
-                      {testimonial.project}
-                    </Badge>
-                  </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-semibold mb-3 text-foreground">
+                            Peran/Jabatan *
+                          </label>
+                          <Input
+                            placeholder="CEO, Mahasiswa, Freelancer, dll"
+                            {...register('role')}
+                            className={`py-3 ${errors.role ? 'border-red-500' : ''}`}
+                          />
+                          {errors.role && (
+                            <p className="text-sm text-red-500 mt-2">
+                              {errors.role.message}
+                            </p>
+                          )}
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold mb-3 text-foreground">
+                            Nama Proyek *
+                          </label>
+                          <Input
+                            placeholder="Website E-commerce, Aplikasi Mobile, Skripsi, dll"
+                            {...register('project')}
+                            className={`py-3 ${errors.project ? 'border-red-500' : ''}`}
+                          />
+                          {errors.project && (
+                            <p className="text-sm text-red-500 mt-2">
+                              {errors.project.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
 
-                  <blockquote className="text-sm leading-relaxed text-muted-foreground mb-4">
-                    &ldquo;{testimonial.message}&rdquo;
-                  </blockquote>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-semibold mb-3 text-foreground">
+                            Kategori Layanan *
+                          </label>
+                          <select
+                            {...register('category')}
+                            className="w-full py-3 px-4 border border-input bg-background rounded-md text-sm"
+                          >
+                            <option value="website">Website Development</option>
+                            <option value="app">Mobile App Development</option>
+                            <option value="academic">Academic Writing</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold mb-3 text-foreground">
+                            Rating *
+                          </label>
+                          <div className="flex items-center gap-3">
+                            <div className="flex">
+                              {renderStars(rating, true, (newRating) => setValue('rating', newRating))}
+                            </div>
+                            <span className="text-sm text-muted-foreground font-medium">
+                              ({rating}/5)
+                            </span>
+                          </div>
+                        </div>
+                      </div>
 
-                  <div className="text-xs text-muted-foreground">
-                    {new Date(testimonial.date).toLocaleDateString('id-ID', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </div>
+                      <div>
+                        <label className="block text-sm font-semibold mb-3 text-foreground">
+                          Testimoni *
+                        </label>
+                        <Textarea
+                          placeholder="Ceritakan pengalaman Anda bekerja sama dengan tim Kedjora. Bagaimana layanan kami membantu mencapai tujuan Anda?"
+                          rows={5}
+                          {...register('message')}
+                          className={`${errors.message ? 'border-red-500' : ''}`}
+                        />
+                        {errors.message && (
+                          <p className="text-sm text-red-500 mt-2">
+                            {errors.message.message}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="flex-1"
+                        >
+                          <Button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white border-0 font-bold py-6 text-base"
+                            size="lg"
+                          >
+                            {isSubmitting ? (
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
+                              />
+                            ) : (
+                              <Send className="h-5 w-5 mr-2" />
+                            )}
+                            {isSubmitting ? 'Mengirim Testimoni...' : 'Kirim Testimoni'}
+                          </Button>
+                        </motion.div>
+                        <motion.div
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setShowForm(false)}
+                            className="border-2 hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold py-6 px-8"
+                            size="lg"
+                          >
+                            Batal
+                          </Button>
+                        </motion.div>
+                      </div>
+                    </form>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
-          ))}
+          )}
         </AnimatePresence>
-      </div>
 
-      {/* No Results */}
-      {filteredTestimonials.length === 0 && (
+        {/* Results Counter */}
+        {filteredTestimonials.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center mb-8"
+          >
+            <p className="text-muted-foreground">
+              Menampilkan <span className="font-semibold text-foreground">{filteredTestimonials.length}</span> testimoni
+              {activeCategory !== 'all' && (
+                <span> dalam kategori <span className="font-semibold text-yellow-600">{categories.find(c => c.id === activeCategory)?.name}</span></span>
+              )}
+            </p>
+          </motion.div>
+        )}
+
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredTestimonials.map((testimonial, index) => {
+              const CategoryIcon = getCategoryIcon(testimonial.category)
+              const categoryColor = getCategoryColor(testimonial.category)
+              
+              return (
+                <motion.div
+                  key={`${activeCategory}-${testimonial.id}`}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  layout
+                  whileHover={{ y: -8 }}
+                  className="group"
+                >
+                  <Card className="h-full overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg relative">
+                    {/* Background Quote */}
+                    <div className="absolute top-4 right-4 opacity-10">
+                      <Quote className="h-16 w-16 text-gray-400 transform rotate-12" />
+                    </div>
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4">
+                      <Badge className={`bg-gradient-to-r ${categoryColor} text-white border-0 capitalize font-semibold`}>
+                        <CategoryIcon className="h-3 w-3 mr-1" />
+                        {testimonial.category === 'website' ? 'Website' : 
+                          testimonial.category === 'app' ? 'Mobile App' : 'Academic'}
+                      </Badge>
+                    </div>
+
+                    {/* Featured Badge */}
+                    {testimonial.featured && (
+                      <div className="absolute top-4 right-20">
+                        <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 font-semibold">
+                          <Star className="h-3 w-3 mr-1" />
+                          Featured
+                        </Badge>
+                      </div>
+                    )}
+                    
+                    <CardContent className="p-6 relative z-10">
+                      {/* Header */}
+                      <div className="flex items-center gap-4 mb-6">
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          className={`relative w-14 h-14 overflow-hidden rounded-full bg-gradient-to-r ${categoryColor} flex items-center justify-center shadow-lg`}
+                        >
+                          <User className="h-7 w-7 text-white" />
+                        </motion.div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-lg text-foreground group-hover:text-yellow-600 transition-colors">
+                            {testimonial.name}
+                          </h4>
+                          <p className="text-sm text-muted-foreground font-medium">
+                            {testimonial.role}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Rating */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="flex">
+                          {renderStars(testimonial.rating)}
+                        </div>
+                        <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                          {testimonial.rating}.0/5
+                        </span>
+                      </div>
+
+                      {/* Project Badge */}
+                      <div className="mb-4">
+                        <Badge variant="outline" className="text-sm font-medium">
+                          📋 {testimonial.project}
+                        </Badge>
+                      </div>
+
+                      {/* Message */}
+                      <blockquote className="text-sm leading-relaxed text-gray-700 dark:text-gray-300 mb-6 relative">
+                        <span className="text-2xl text-yellow-500 absolute -top-2 -left-1">&ldquo;</span>
+                        <span className="pl-4">{testimonial.message}</span>
+                        <span className="text-2xl text-yellow-500">&rdquo;</span>
+                      </blockquote>
+
+                      {/* Date */}
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {new Date(testimonial.date).toLocaleDateString('id-ID', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </div>
+
+        {/* No Results */}
+        {filteredTestimonials.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-16"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="w-24 h-24 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6"
+            >
+              <MessageCircle className="w-12 h-12 text-white" />
+            </motion.div>
+            
+            <h3 className="text-2xl font-bold text-foreground mb-3">Belum ada testimoni</h3>
+            <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+              Jadilah yang pertama memberikan testimoni untuk kategori ini dan bantu calon klien lain mengenal kualitas layanan kami.
+            </p>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button 
+                onClick={() => setShowForm(true)}
+                className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white border-0"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Tambah Testimoni Pertama
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* CTA Section */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-20 text-center"
         >
-          <div className="text-6xl mb-4">💬</div>
-          <h3 className="text-xl font-semibold mb-2">Belum ada testimoni</h3>
-          <p className="text-muted-foreground mb-6">
-            Jadilah yang pertama memberikan testimoni untuk kategori ini
-          </p>
-          <Button onClick={() => setShowForm(true)}>
-            Tambah Testimoni
-          </Button>
+          <div className="bg-gradient-to-r from-yellow-600 via-orange-600 to-red-600 rounded-3xl p-12 text-white relative overflow-hidden">
+            {/* Background animation */}
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+                rotate: [0, 180, 360]
+              }}
+              transition={{ 
+                duration: 20, 
+                repeat: Infinity, 
+                ease: "linear"
+              }}
+              className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl"
+            />
+            
+            <div className="relative z-10">
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="inline-block mb-4"
+              >
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto">
+                  <Zap className="w-8 h-8" />
+                </div>
+              </motion.div>
+              
+              <h2 className="text-3xl font-bold mb-4">
+                Siap Menjadi Bagian dari Klien Puas Kami?
+              </h2>
+              
+              <p className="text-xl text-yellow-100 mb-8 max-w-3xl mx-auto">
+                Bergabunglah dengan 300+ klien yang telah merasakan kepuasan bekerja sama dengan tim Kedjora. 
+                Mari wujudkan proyek digital impian Anda dengan kualitas terbaik!
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Link href="/contact">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" className="bg-white text-yellow-600 hover:bg-gray-100 font-bold px-8 py-6 text-base shadow-2xl min-w-[200px]">
+                      <CheckCircle className="mr-2 h-5 w-5" />
+                      Mulai Proyek Anda
+                    </Button>
+                  </motion.div>
+                </Link>
+                
+                <Link href="/services">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 font-bold px-8 py-6 text-base min-w-[200px]">
+                      <ArrowRight className="mr-2 h-5 w-5" />
+                      Lihat Layanan
+                    </Button>
+                  </motion.div>
+                </Link>
+              </div>
+            </div>
+          </div>
         </motion.div>
-      )}
+      </div>
     </div>
   )
 }
