@@ -221,7 +221,7 @@ export default function Header() {
                         size="sm"
                         className={`rounded-xl px-6 ${
                           scrolled 
-                            ? 'text-gray-700 hover:bg-gray-100' 
+                            ? 'text-gray-700 hover:bg-gray-100' // Kembali ke gray untuk putih header
                             : 'text-white hover:bg-white/10'
                         }`}
                       >

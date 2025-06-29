@@ -147,7 +147,7 @@ export default function BlogPage() {
   const latestPosts = blogPosts.slice(0, 3)
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-16 pt-24">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

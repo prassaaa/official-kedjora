@@ -91,7 +91,7 @@ export default function ServicesPage() {
   const services = [SERVICES.WEBSITE, SERVICES.APP, SERVICES.ACADEMIC]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 pt-24">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
