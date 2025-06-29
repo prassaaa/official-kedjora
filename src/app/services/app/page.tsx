@@ -138,7 +138,7 @@ export default function AppServicePage() {
   const [selectedPackage, setSelectedPackage] = useState(service?.packages?.[1] || service?.packages?.[0])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 pt-24">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
@@ -167,7 +167,7 @@ export default function AppServicePage() {
         />
       </div>
 
-      <div className="relative container mx-auto px-4 py-16">
+      <div className="relative container mx-auto max-w-6xl px-4 py-16">
         {/* Breadcrumb */}
         <motion.nav
           initial={{ opacity: 0, y: -20 }}

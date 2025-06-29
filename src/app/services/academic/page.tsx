@@ -16,7 +16,14 @@ export default function AcademicServicePage() {
   const [selectedPackage, setSelectedPackage] = useState(service.packages[0]) // Default to Assignment
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 pt-24">
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-l from-green-200/20 to-emerald-200/20 dark:from-green-500/10 dark:to-emerald-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-gradient-to-r from-blue-200/20 to-cyan-200/20 dark:from-blue-500/10 dark:to-cyan-500/10 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="relative container mx-auto max-w-6xl px-4 py-16">
       {/* Breadcrumb */}
       <nav className="flex mb-8" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">

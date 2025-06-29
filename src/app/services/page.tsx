@@ -397,7 +397,7 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
             {processSteps.map((step, index) => (
               <motion.div
                 key={index}
@@ -406,18 +406,18 @@ export default function ServicesPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 whileHover={{ y: -5 }}
-                className="relative"
+                className="relative p-3"
               >
-                <Card className="text-center p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                <Card className="text-center p-6 pt-8 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-visible">
                   {/* Step number */}
                   <motion.div
                     whileHover={{ scale: 1.1 }}
-                    className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
+                    className="absolute -top-3 -right-3 w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg z-10"
                   >
                     {step.step}
                   </motion.div>
                   
-                  <h3 className="font-bold text-lg text-foreground mb-3 mt-4">
+                  <h3 className="font-bold text-lg text-foreground mb-3 mt-6 pr-4">
                     {step.title}
                   </h3>
                   
